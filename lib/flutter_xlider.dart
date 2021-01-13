@@ -697,6 +697,12 @@ class _FlutterSliderState extends State<FlutterSlider>
       _realMax = 100;
       _realMin = 0;
       _widgetStep = 1;
+      for (var index = 0; index < widget.fixedValues.length - 1; ++index) {
+        _widgetStep = min(
+            widget.fixedValues[index].percent -
+                widget.fixedValues[index - 1].percent,
+            _widgetStep);
+      }
       _widgetMax = 100;
       _widgetMin = 0;
 
@@ -2570,7 +2576,7 @@ class FlutterSliderIgnoreSteps {
 }
 
 class FlutterSliderFixedValue {
-  final int percent;
+  final num percent;
   final dynamic value;
 
   FlutterSliderFixedValue({this.percent, this.value})
