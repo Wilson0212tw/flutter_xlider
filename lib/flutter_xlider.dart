@@ -717,7 +717,7 @@ class _FlutterSliderState extends State<FlutterSlider>
       for (double fixedPercent = 0; fixedPercent <= 100; fixedPercent++) {
         dynamic fValue = '';
         for (FlutterSliderFixedValue fixedValue in widget.fixedValues) {
-          if (fixedValue.percent == fixedPercent.toInt()) {
+          if (fixedValue.percent == fixedPercent) {
             fixedValuesIndices.add(fixedValue.percent.toDouble());
             fValue = fixedValue.value;
 
@@ -733,7 +733,7 @@ class _FlutterSliderState extends State<FlutterSlider>
           }
         }
         _fixedValues.add(FlutterSliderFixedValue(
-            percent: fixedPercent.toInt(), value: fValue));
+            percent: fixedPercent, value: fValue));
         if (fValue.toString().isNotEmpty) {
           fixedV.add(fixedPercent);
         }
