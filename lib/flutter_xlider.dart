@@ -697,12 +697,14 @@ class _FlutterSliderState extends State<FlutterSlider>
       _realMax = 100;
       _realMin = 0;
       _widgetStep = 1;
-      for (var index = 0; index < widget.fixedValues.length - 1; ++index) {
-        _widgetStep = min(
-            widget.fixedValues[index + 1].percent -
-                widget.fixedValues[index].percent,
-            _widgetStep);
-      }
+      // for (var index = 0; index < widget.fixedValues.length - 1; ++index) {
+        // _widgetStep = min(
+        //     widget.fixedValues[index + 1].percent -
+        //         widget.fixedValues[index].percent,
+        //     _widgetStep);
+        // print('_widgetStep$_widgetStep');
+      // }
+      print('final _widgetStep$_widgetStep');
       _widgetMax = 100;
       _widgetMin = 0;
 
