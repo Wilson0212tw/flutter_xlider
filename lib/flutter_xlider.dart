@@ -696,13 +696,15 @@ class _FlutterSliderState extends State<FlutterSlider>
     if (widget.fixedValues != null && widget.fixedValues.length > 0) {
       _realMax = 100;
       _realMin = 0;
-      _widgetStep = 1;
+
       for (var index = 0; index < widget.fixedValues.length - 1; ++index) {
         _widgetStep = min(
-            widget.fixedValues[index+1].percent -
-                widget.fixedValues[index ].percent,
+            widget.fixedValues[index + 1].percent -
+                widget.fixedValues[index].percent,
             _widgetStep);
+        print('_widgetStep :${_widgetStep}');
       }
+      print('final _widgetStep :${_widgetStep}');
       _widgetMax = 100;
       _widgetMin = 0;
 
@@ -714,28 +716,26 @@ class _FlutterSliderState extends State<FlutterSlider>
       double lowerIgnoreBound = -1;
       double upperIgnoreBound;
       List<double> fixedV = [];
-      for (double fixedPercent = 0; fixedPercent <= 100; fixedPercent++) {
+      for (FlutterSliderFixedValue fixedValue in widget.fixedValues) {
         dynamic fValue = '';
-        for (FlutterSliderFixedValue fixedValue in widget.fixedValues) {
-          if (fixedValue.percent == fixedPercent) {
+     
             fixedValuesIndices.add(fixedValue.percent.toDouble());
             fValue = fixedValue.value;
 
-            upperIgnoreBound = fixedPercent;
-            if (fixedPercent > lowerIgnoreBound + 1 || lowerIgnoreBound == 0) {
-              if (lowerIgnoreBound > 0) lowerIgnoreBound += 1;
-              upperIgnoreBound = fixedPercent - 1;
-              _ignoreSteps.add(FlutterSliderIgnoreSteps(
-                  from: lowerIgnoreBound, to: upperIgnoreBound));
-            }
-            lowerIgnoreBound = fixedPercent;
-            break;
-          }
-        }
-        _fixedValues.add(FlutterSliderFixedValue(
-            percent: fixedPercent, value: fValue));
+            // upperIgnoreBound = fixedValue.percent;
+            // if (fixedPercent > lowerIgnoreBound + 1 || lowerIgnoreBound == 0) {
+            //   if (lowerIgnoreBound > 0) lowerIgnoreBound += 1;
+            //   upperIgnoreBound = fixedPercent - 1;
+            //   _ignoreSteps.add(FlutterSliderIgnoreSteps(
+            //       from: lowerIgnoreBound, to: upperIgnoreBound));
+            // }
+          
+          
+        
+        _fixedValues
+            .add(FlutterSliderFixedValue(percent: fixedValue.percent, value: fValue));
         if (fValue.toString().isNotEmpty) {
-          fixedV.add(fixedPercent);
+          fixedV.add(fixedValue.percent);
         }
       }
 
