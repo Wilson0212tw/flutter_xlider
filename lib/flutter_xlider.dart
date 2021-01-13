@@ -699,8 +699,8 @@ class _FlutterSliderState extends State<FlutterSlider>
       _widgetStep = 1;
       for (var index = 0; index < widget.fixedValues.length - 1; ++index) {
         _widgetStep = min(
-            widget.fixedValues[index].percent -
-                widget.fixedValues[index - 1].percent,
+            widget.fixedValues[index+1].percent -
+                widget.fixedValues[index ].percent,
             _widgetStep);
       }
       _widgetMax = 100;
