@@ -694,23 +694,23 @@ class _FlutterSliderState extends State<FlutterSlider>
     _ignoreSteps = [];
 
     if (widget.fixedValues != null && widget.fixedValues.length > 0) {
-      
-       _realMax = 100;
+      _realMax = 100;
       _realMin = 0;
       _widgetStep = 1;
       for (var index = 0; index < widget.fixedValues.length - 1; ++index) {
         _widgetStep = min(
-            widget.fixedValues[index+1].percent -
-                widget.fixedValues[index ].percent,
+            widget.fixedValues[index + 1].percent -
+                widget.fixedValues[index].percent,
             _widgetStep);
       }
       _widgetMax = 100;
       _widgetMin = 0;
 
-      // List<double> fixedValuesIndices = [];
-      // for (FlutterSliderFixedValue fixedValue in widget.fixedValues) {
-      //   fixedValuesIndices.add(fixedValue.percent.toDouble());
-      // }
+      List<double> fixedValuesIndices = [];
+      for (FlutterSliderFixedValue fixedValue in widget.fixedValues) {
+        fixedValuesIndices.add(fixedValue.percent.toDouble());
+        _fixedValues.add(fixedValue);
+      }
 
       // double lowerIgnoreBound = -1;
       // double upperIgnoreBound;
@@ -733,8 +733,8 @@ class _FlutterSliderState extends State<FlutterSlider>
       //       break;
       //     }
       //   }
-      //   _fixedValues.add(FlutterSliderFixedValue(
-      //       percent: fixedPercent.toInt(), value: fValue));
+      // _fixedValues.add(FlutterSliderFixedValue(
+      //     percent: fixedPercent.toInt(), value: fValue));
       //   if (fValue.toString().isNotEmpty) {
       //     fixedV.add(fixedPercent);
       //   }
@@ -746,9 +746,7 @@ class _FlutterSliderState extends State<FlutterSlider>
       //   _ignoreSteps
       //       .add(FlutterSliderIgnoreSteps(from: biggestPoint + 1, to: 101));
       // }
-          
-          
-       
+
     } else {
       _realMax = _widgetMax - _widgetMin;
       _widgetStep = widget.step.step;
