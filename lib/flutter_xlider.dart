@@ -696,13 +696,13 @@ class _FlutterSliderState extends State<FlutterSlider>
     if (widget.fixedValues != null && widget.fixedValues.length > 0) { 
       _realMax = 100; 
       _realMin = 0; 
-      _widgetStep = 1; 
+      _widgetStep = 0.01; 
       _widgetMax = 100; 
       _widgetMin = 0; 
  
       List<double> fixedValuesIndices = []; 
       for (FlutterSliderFixedValue fixedValue in widget.fixedValues) { 
-        fixedValuesIndices.add(fixedValue.percent.toDouble()); 
+        fixedValuesIndices.add(fixedValue.percent); 
       } 
  
       double lowerIgnoreBound = -1; 
@@ -711,8 +711,8 @@ class _FlutterSliderState extends State<FlutterSlider>
       for (double fixedPercent = 0; fixedPercent <= 100; fixedPercent+= 0.01) { 
         dynamic fValue = ''; 
         for (FlutterSliderFixedValue fixedValue in widget.fixedValues) { 
-          if (fixedValue.percent == fixedPercent.toDouble()) { 
-            fixedValuesIndices.add(fixedValue.percent.toDouble()); 
+          if (fixedValue.percent == fixedPercent) { 
+            fixedValuesIndices.add(fixedValue.percent); 
             fValue = fixedValue.value; 
  
             upperIgnoreBound = fixedPercent; 
