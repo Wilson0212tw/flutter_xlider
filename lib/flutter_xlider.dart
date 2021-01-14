@@ -693,65 +693,55 @@ class _FlutterSliderState extends State<FlutterSlider>
 
     _ignoreSteps = [];
 
-    if (widget.fixedValues != null && widget.fixedValues.length > 0) {
-      _realMax = 100;
-      _realMin = 0;
-      _widgetStep = 1;
-      // for (var index = 0; index < widget.fixedValues.length - 1; ++index) {
-        // _widgetStep = min(
-        //     widget.fixedValues[index + 1].percent -
-        //         widget.fixedValues[index].percent,
-        //     _widgetStep);
-        // print('_widgetStep$_widgetStep');
-      // }
-      print('final _widgetStep$_widgetStep');
-      _widgetMax = 100;
-      _widgetMin = 0;
-
-      List<double> fixedValuesIndices = [];
-      for (FlutterSliderFixedValue fixedValue in widget.fixedValues) {
-        fixedValuesIndices.add(fixedValue.percent.toDouble());
-        _fixedValues.add(fixedValue);
-      }
-
-      // double lowerIgnoreBound = -1;
-      // double upperIgnoreBound;
-      // List<double> fixedV = [];
-      // for (double fixedPercent = 0; fixedPercent <= 100; fixedPercent++) {
-      //   dynamic fValue = '';
-      //   for (FlutterSliderFixedValue fixedValue in widget.fixedValues) {
-      //     if (fixedValue.percent == fixedPercent.toInt()) {
-      //       fixedValuesIndices.add(fixedValue.percent.toDouble());
-      //       fValue = fixedValue.value;
-
-      //       upperIgnoreBound = fixedPercent;
-      //       if (fixedPercent > lowerIgnoreBound + 1 || lowerIgnoreBound == 0) {
-      //         if (lowerIgnoreBound > 0) lowerIgnoreBound += 1;
-      //         upperIgnoreBound = fixedPercent - 1;
-      //         _ignoreSteps.add(FlutterSliderIgnoreSteps(
-      //             from: lowerIgnoreBound, to: upperIgnoreBound));
-      //       }
-      //       lowerIgnoreBound = fixedPercent;
-      //       break;
-      //     }
-      //   }
-      // _fixedValues.add(FlutterSliderFixedValue(
-      //     percent: fixedPercent.toInt(), value: fValue));
-      //   if (fValue.toString().isNotEmpty) {
-      //     fixedV.add(fixedPercent);
-      //   }
-      // }
-
-      // double biggestPoint =
-      //     _findBiggestIgnorePoint(ignoreBeyondBoundaries: true);
-      // if (!fixedV.contains(100)) {
-      //   _ignoreSteps
-      //       .add(FlutterSliderIgnoreSteps(from: biggestPoint + 1, to: 101));
-      // }
-
-    } else {
-      _realMax = _widgetMax - _widgetMin;
-      _widgetStep = widget.step.step;
+    if (widget.fixedValues != null && widget.fixedValues.length > 0) { 
+      _realMax = 100; 
+      _realMin = 0; 
+      _widgetStep = 1; 
+      _widgetMax = 100; 
+      _widgetMin = 0; 
+ 
+      List<double> fixedValuesIndices = []; 
+      for (FlutterSliderFixedValue fixedValue in widget.fixedValues) { 
+        fixedValuesIndices.add(fixedValue.percent.toDouble()); 
+      } 
+ 
+      double lowerIgnoreBound = -1; 
+      double upperIgnoreBound; 
+      List<double> fixedV = []; 
+      for (double fixedPercent = 0; fixedPercent <= 100; fixedPercent+= 0.01) { 
+        dynamic fValue = ''; 
+        for (FlutterSliderFixedValue fixedValue in widget.fixedValues) { 
+          if (fixedValue.percent == fixedPercent.toDouble()) { 
+            fixedValuesIndices.add(fixedValue.percent.toDouble()); 
+            fValue = fixedValue.value; 
+ 
+            upperIgnoreBound = fixedPercent; 
+            if (fixedPercent > lowerIgnoreBound + 0.01 || lowerIgnoreBound == 0) { 
+              if (lowerIgnoreBound > 0) lowerIgnoreBound += 0.01; 
+              upperIgnoreBound = fixedPercent - 0.01; 
+              _ignoreSteps.add(FlutterSliderIgnoreSteps( 
+                  from: lowerIgnoreBound, to: upperIgnoreBound)); 
+            } 
+            lowerIgnoreBound = fixedPercent; 
+            break; 
+          } 
+        } 
+        _fixedValues.add(FlutterSliderFixedValue( 
+            percent: fixedPercent, value: fValue)); 
+        if (fValue.toString().isNotEmpty) { 
+          fixedV.add(fixedPercent); 
+        } 
+      } 
+ 
+      double biggestPoint = 
+          _findBiggestIgnorePoint(ignoreBeyondBoundaries: true); 
+      if (!fixedV.contains(100)) { 
+        _ignoreSteps 
+            .add(FlutterSliderIgnoreSteps(from: biggestPoint + 1, to: 101)); 
+      } 
+    } else { 
+      _realMax = _widgetMax - _widgetMin; 
+      _widgetStep = widget.step.step; 
     }
 
     _ignoreSteps..addAll(widget.ignoreSteps);
